@@ -1,0 +1,106 @@
+<html lang="en">
+<head>
+    <title>Android</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./css/bootstrap.3.4.1.min.css">
+    <link rel="stylesheet" href="./css/app.css">
+    <script src="./js/jquery.3.4.1.min.js"></script>
+    <script src="./js/bootstrap.3.4.1.min.js"></script>
+</head>
+<body>
+    <div class="atmosphere" id="welcome" >
+        <div class="jumbotron text-center" >
+            <h1>Illusion</h1>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 btn-group-vertical">
+                    <button type="button" class="btn btn-lg btn-info" onclick="IllusionApp.start('SINGLE_TRANSITION')">
+                        Single Transition
+                    </button>
+                    <button type="button" class="btn btn-lg btn-info" onclick="IllusionApp.start('MULTIPLE_TRANSITION')">
+                        Multiple Transition
+                    </button>
+                    <button type="button" class="btn btn-lg btn-info" onclick="IllusionApp.start('TORCH')">
+                        Torch
+                    </button>
+                    <button type="button" class="btn btn-lg btn-info" onclick="IllusionApp.start('PARTY')">
+                        Party Light
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="illusion-window" hidden>
+    </div>
+</body>
+<script type="text/javascript">
+    window.IllusionApp = {
+        AppName: "Illusion",
+        MAX_COLOR_SHADES: 21,
+        MAX_COLOR_MODELS: 7,
+        activeColorModel: null,
+        defaultColorModel: null,
+        activeColorIndex: 20,
+        activeColorModelIndex: 0,
+        Flags: {
+            REVERSE: true,
+            RED_SHADES: false,
+            GREEN_SHADES: false,
+            BLUE_SHADES: false,
+            CYAN_SHADES: false,
+            MAGENTA_SHADES: false,
+            YELLOW_SHADES: false,
+            GRAY_SHADES: false
+        },
+        Modes: {
+            SINGLE_TRANSITION: "SINGLE_TRANSITION",
+            MULTIPLE_TRANSITION: "MULTIPLE_TRANSITION",
+            TORCH: "TORCH",
+            PARTY: "PARTY"
+        },
+        Operations: {
+            SINGLE_TRANSITION: null,
+            MULTIPLE_TRANSITION: null,
+            TORCH: null,
+            PARTY: null
+        },
+        activeMode: null,
+        colorModels: null,
+        Stack: {
+            tos: 0,
+            stack: ["#welcome"]
+        },
+        StackManager: {},
+        Controls: AndroidSystem,
+        timer: null
+    }
+</script>
+<script type="text/javascript" src="./js/key-handler.js"></script>
+<script type="text/javascript" src="./js/colors.js"></script>
+<script type="text/javascript" src="./js/single-transition.js"></script>
+<script type="text/javascript" src="./js/multiple-transition.js"></script>
+<script type="text/javascript" src="./js/torch.js"></script>
+<script type="text/javascript" src="./js/party.js"></script>
+<script type="text/javascript" src="./js/controller.js"></script>
+<script type="text/javascript" src="./js/stack-manager.js"></script>
+<script>
+    $("#illusion-window").click(function() {
+        switch(IllusionApp.activeMode) {
+            case IllusionApp.Modes.SINGLE_TRANSITION:
+                IllusionApp.switchColorModel();
+                break;
+            case IllusionApp.Modes.MULTIPLE_TRANSITION:
+                break;
+            case IllusionApp.Modes.TORCH:
+                IllusionApp.switchColorModel();
+                break;
+            case IllusionApp.Modes.PARTY:
+                break;
+            default:;
+        }
+    });
+</script>
+</html>
